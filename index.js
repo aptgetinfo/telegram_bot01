@@ -31,9 +31,9 @@ app.get('/getAdminOfGroup/:groupName', async (req,res)=>{
         res.status(404).send(e);
     }
 });
-const PORT = process.env.PORT||3000;
+const PORT = process.env.PORT;
 const server = app.listen(PORT, () =>
-    console.log(`Sever running on port ${PORT}`);
+    console.log(`Sever running on port ${PORT}`)
 );
 process.on("unhandledRejection", (err, promise) => {
     console.log(`Logged Error: ${err.message}`);
