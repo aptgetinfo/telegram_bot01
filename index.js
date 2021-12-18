@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const fetch =require('cross-fetch');
 const app = express();
-const API_KEY="bot5055266037:AAHo0TW_j7grlcqQnYqtTd06Qoa4oI5PK8o";
+const API_KEY=process.env.API_KEY;
 const BASE_URI="https://api.telegram.org/"+API_KEY+"/getChatAdministrators?chat_id=@";
 app.use(cors());
 app.use(express.json());
@@ -33,7 +33,7 @@ app.get('/getAdminOfGroup/:groupName', async (req,res)=>{
         res.status(404).send(e);
     }
 });
-const PORT = process.env.PORT||3000;
+const PORT = process.env.PORT;
 const server = app.listen(PORT, () =>
     console.log(`Sever running on port ${PORT}`)
 );
