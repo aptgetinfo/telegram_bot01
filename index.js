@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const fetch =require('cross-fetch');
 const app = express();
-const BASE_URI="https://api.telegram.org/bot5055266037:AAHo0TW_j7grlcqQnYqtTd06Qoa4oI5PK8o/getChatAdministrators?chat_id=@";
+const BASE_URI="https://api.telegram.org/"+API_KEY+"/getChatAdministrators?chat_id=@";
 app.use(cors());
 app.use(express.json());
 app.get('/', async (_, res) => {
