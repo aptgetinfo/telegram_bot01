@@ -70,7 +70,7 @@ app.post('/msgAdminOfGroup/:groupName', async (req, res) => {
         }
         for (var i = 0; i < json.result.length; i++) {
             await client.sendMessage(`${json.result[i].user.username}`, { message: `${message}` });
-        };
+        }
         res.status(200).json({ sucess: true });
     } catch (e) {
         res.status(404).send(e);
