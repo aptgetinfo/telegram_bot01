@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node src/index.js",
     "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env nodemon ./src/index.js"
   },
   "author": "",
@@ -17,6 +17,7 @@
     "telegram": "^2.1.0"
   },
   "devDependencies": {
-    "env-cmd": "^10.1.0"
+    "env-cmd": "^10.1.0",
+    "nodemon": "2.0.4"
   }
 }
