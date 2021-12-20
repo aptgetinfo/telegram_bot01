@@ -16,5 +16,15 @@ Api Hash generated from  [my.telegram.org/app](http://my.telegram.org/app)
 3. Enter your phone number
 4. Enter the code recived on your telegram messenger
 5. Copy paste the given  String to STRING_SESSION in env config
-6. Run on Local Machine `npm run dev`
-7. Run Production on Heroku after setting up configs of Production `npm start`
+6. Upon Login you should recive a message with the same account on telegram
+7. Run on Local Machine `npm run dev`
+8. Run Production on Heroku after setting up configs of Production `npm start`
+
+
+## Methods
+* Get Admins Name
+  `[GET]` {url}/getAdminOfGroup/:groupName
+
+* Send Message to Admins
+  `[POST]` {url}/msgAdminOfGroup/:groupName
+  JSON BODY  {"message":"Your custom message"}
