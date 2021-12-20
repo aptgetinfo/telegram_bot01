@@ -4,10 +4,10 @@ const input = require("input");
 const fetch = require('cross-fetch');
 const { TelegramClient } = require("telegram");
 const { StringSession } = require("telegram/sessions");
-const API_KEY = process.env.API_KEY;
-const API_LINK = "https://api.telegram.org/" + API_KEY + "/getChatAdministrators?chat_id=@";
-const API_ID = process.env.API_ID;
-const API_HASH = process.env.API_HASH;
+const BOT_API_KEY = process.env.BOT_API_KEY;
+const API_LINK = "https://api.telegram.org/" + BOT_API_KEY + "/getChatAdministrators?chat_id=@";
+const APP_API_ID = process.env.APP_API_ID;
+const APP_API_HASH = process.env.APP_API_HASH;
 const STRING_SESSION = process.env.STRING_SESSION;
 const PORT = process.env.PORT;
 
@@ -18,9 +18,6 @@ app.use(express.json());
 
 
 const stringSession = new StringSession(STRING_SESSION);
-const client = new TelegramClient(stringSession, API_ID, API_HASH, {
-    connectionRetries: 5,
-});
 
 
 app.get('/', async (_, res) => {
@@ -65,12 +62,23 @@ app.post('/msgAdminOfGroup/:groupName', async (req, res) => {
             res.status(500).json({ failure: "Group Not Found" });
         }
         const json = await Ress.json();
-        if (!client) {
-            res.status(500).json({ failure: "Client not Found !" });
-        }
-        for (var i = 0; i < json.result.length; i++) {
-            await client.sendMessage(`${json.result[i].user.username}`, { message: `${message}` });
-        }
+        (async () => {
+            const client = new TelegramClient(stringSession, APP_API_ID, APP_API_HASH, { connectionRetries: 5 })
+            await client.start({
+                phoneNumber: async () => await input.text('number ?'),
+                password: async () => await input.text('password?'),
+                phoneCode: async () => await input.text('Code ?'),
+                onError: (err) => console.log(err),
+            });
+            if (!client) {
+                res.status(500).json({ failure: "Client not Found !" });
+            }
+            console.log('You should now be connected.');
+            console.log(client.session.save());
+            for (var i = 0; i < json.result.length; i++) {
+                await client.sendMessage(`${json.result[i].user.username}`, { message: message });
+            }
+        })();    
         res.status(200).json({ sucess: true });
     } catch (e) {
         res.status(404).send(e);
