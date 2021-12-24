@@ -66,8 +66,8 @@ app.post('/msgAdminOfGroup/:groupName', async (req, res) => {
             const client = new TelegramClient(stringSession, APP_API_ID, APP_API_HASH, { connectionRetries: 5 });
             await client.start({
                 phoneNumber: async () => await input.text('number ?'),
-                password: async () => await input.text('password?'),
-                phoneCode: async () => await input.text('Code ?'),
+                password: async () => await input.text('password ?'),
+                phoneCode: async () => await input.text('code ?'),
                 onError: (err) => console.log(err),
             });
             if (!client) {
